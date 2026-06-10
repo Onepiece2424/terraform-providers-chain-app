@@ -36,3 +36,9 @@ module "website" {
     Module = "s3-bucket"
   }
 }
+
+resource "aws_s3_bucket" "cloudfront_logs" {
+  region = "us-west-1"
+
+  bucket_prefix = "terraform-cloudfront-logs-"
+}
