@@ -1,5 +1,7 @@
 provider "aws" {
-  region = "us-west-2"
+  alias = "east"
+
+  region = "us-east-1"
 
   default_tags {
     tags = {
@@ -9,6 +11,16 @@ provider "aws" {
   }
 }
 
+module "website_east" {
+  source  = "terraform-aws-modules/s3-bucket/aws"
+  version = "5.2.0"
+
+  providers = {
+    aws = aws.east
+  }
+
+  bucket_prefix = "example-east-"
+}
 
 resource "aws_s3_bucket" "example" {
   bucket_prefix = "terraform-provider-example-"
